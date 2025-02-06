@@ -1,0 +1,15 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build -t backend:latest -f Dockerfile-backend .
+    - docker build -t frontend:latest -f Dockerfile-frontend .
+
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f kubernetes/deployment.yaml
